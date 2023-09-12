@@ -17,5 +17,7 @@
 
 def main():
     print("Hello Mojo 🔥!")
+    let num =2
+    print(num.DType.is_bool())
     for x in range(9, 0, -3):
         print(x)

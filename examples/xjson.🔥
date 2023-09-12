@@ -1,0 +1,34 @@
+from python import Python
+from python.object import PythonObject
+import sys
+
+
+# decodes a JSON list into it's values in a string
+fn determine_strings_of(decoded_json: PythonObject) -> None:
+    if Python.type(decoded_json)==str:
+        return decoded_json
+    elif Python.is_type(decoded_json)==float or Python.type(decoded_json)==int:
+        return "number"
+    elif Python.type(decoded_json)==list:
+        return ", ".join([determine_strings_of(val) for val in decoded_json if val])
+    elif Python.type(decoded_json)==dict:
+        let sorted_vals: list = dict(sorted(decoded_json.items())).values()
+        return ", ".join([determine_strings_of(val) for val in sorted_vals if val])
+
+# main method which loads JSON data from standard-in and prints out strings from the JSON object 
+fn main():
+    print(Python.type(2))
+    try:      
+        let json: PythonObject = Python.import_module("json")
+        let json_inp: String = ""
+        while True:
+            json_inp += input()
+            try:
+                let decoded_json: PythonObject = json.loads(json_inp)
+                print(determine_strings_of(decoded_json))
+                break
+            except:
+                pass
+    except:
+        pass
+    
